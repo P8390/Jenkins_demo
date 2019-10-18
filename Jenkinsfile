@@ -1,10 +1,15 @@
 pipeline {
-    agent { docker { image 'python:3.5.1' } }
-    stages {
-        stage('build') {
-            steps {
-                sh 'python --version'
-            }
-        }
+  agent { docker { image 'python2.7' } }
+  stages {
+    stage('build') {
+      steps {
+        sh 'pip install -r requirements.txt'
+      }
     }
+    stage('test') {
+      steps {
+        sh 'python tests.py'
+      }
+    }
+  }
 }

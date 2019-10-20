@@ -1,13 +1,23 @@
 pipeline {
-    agent {
-        docker 
-          { image 'python:2.7' }
+  agent {
+    docker {
+      image 'node:6-alpine'
+      args '-p 3000:3000'
     }
-    stages {
-        stage('Test') {
-            steps {
-                sh 'python --version'
-            }
-        }
+  }
+  environment {
+    CI = 'true'
+  }
+  stages {
+    stage('Build') {
+      steps {
+        sh 'npm install'
+      }
     }
+    stage('Test') {
+      steps {
+        sh './jenkins/scripts/test.sh'
+      }
+    }
+  }
 }

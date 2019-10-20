@@ -1,23 +1,20 @@
 pipeline {
-  agent {
-    docker {
-      image 'node:6-alpine'
-      args '-p 3000:3000'
-    }
-  }
-  environment {
-    CI = 'true'
-  }
+  agent { docker { image 'python:3.7.2' } }
   stages {
-    stage('Build') {
+    stage('build') {
       steps {
-        sh 'npm install'
+        sh 'pip install -r requirements.txt'
       }
     }
-    stage('Test') {
+    stage('test') {
       steps {
-        sh './jenkins/scripts/test.sh'
+        sh 'python tests.py'
       }
+      post {
+        always {
+          junit 'test-reports/*.xml'
+        }
+      }    
     }
   }
 }

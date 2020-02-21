@@ -3,7 +3,12 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'python --version'
+                echo 'In Build Stage'
+            }
+        }
+        stage('run') {
+            steps {
+                echo 'In Running Stage'
                 sh 'python hello_workd.py'
             }
         }

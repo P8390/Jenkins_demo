@@ -4,7 +4,11 @@ pipeline {
         stage('build') {
             steps {
                 retry(2) {
-                sh 'In Build Stage'
+                echo 'In Build Stage'
+                }
+                timeout(time:3, unit:'SECONDS') {
+                    sleep(5)
+                    echo 'Hey, In Timeout!!'
                 }
             }
         }

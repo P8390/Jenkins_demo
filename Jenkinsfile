@@ -3,7 +3,9 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                echo 'In Build Stage'
+                retry(2) {
+                sh 'In Build Stage'
+                }
             }
         }
         stage('run') {

@@ -15,6 +15,11 @@ pipeline {
           python tests.py
         '''
       }
+      post {
+        always {
+          junit 'test-reports/*.xml'
+        }
+      }
     }
   }
 

@@ -28,6 +28,12 @@ pipeline {
                 echo 'Deploying on staging'
             }
         }
+        stage('Sanity - check') {
+            steps {
+                echo 'sanity before production. okay ?'
+            }
+        }
+        
         stage('deploy-production') {
             steps {
                 echo 'Deploying on production'

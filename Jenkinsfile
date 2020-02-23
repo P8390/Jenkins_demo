@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    enviornment {
+        AUTH = 'oauth2'
+        DB_ENGINE = 'Mysql'
+    }
     stages {
         stage('build') {
             steps {
@@ -9,6 +13,8 @@ pipeline {
                 timeout(time:3, unit:'SECONDS') {
                     echo 'Hey, In Timeout!!'
                 }
+                echo 'AUTH for this project - ${AUTH}'
+                echo 'DB ENGINE - ${DB_ENGINE}'
             }
         }
         stage('run') {

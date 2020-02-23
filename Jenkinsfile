@@ -13,8 +13,8 @@ pipeline {
                 timeout(time:3, unit:'SECONDS') {
                     echo 'Hey, In Timeout!!'
                 }
-                echo 'AUTH for this project - ${AUTH}'
-                echo 'DB ENGINE - ${DB_ENGINE}'
+                echo "AUTH for this project - ${AUTH}"
+                echo "DB ENGINE - ${DB_ENGINE}"
             }
         }
         stage('run') {

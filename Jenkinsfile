@@ -35,8 +35,8 @@ pipeline {
         }
         failure {
             echo 'In case of failure'
-            mail to: 'pankaj@screen-magic.com'
-                subject: "Failed Pipeline: ${currentBuild.fullDisplayName}"
+            mail to: 'pankaj@screen-magic.com',
+                subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
                 body: "Something is wrong with ${env.BUILD_URL}"
         }
         unstable {

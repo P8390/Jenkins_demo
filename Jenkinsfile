@@ -5,8 +5,7 @@ pipeline {
       steps {
         sh '''/usr/local/bin/virtualenv jenkins_demo
         source jenkins_demo/bin/activate
-        /usr/local/bin/pip install -r requirements.txt
-        /usr/local/bin/pip freeze
+        /Users/pankaj/.jenkins/workspace/multi_master/jenkins_demo/bin/pip install -r requirements.txt
         '''
       }
     }

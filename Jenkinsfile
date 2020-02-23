@@ -11,8 +11,7 @@ pipeline {
                 echo 'In Build Stage'
                 }
                 timeout(time:3, unit:'SECONDS') {
-                    sleep(5)
-                    echo 'Hey, In Timeout!!'
+                    ech 'Hey, In Timeout!!'
                 }
                 echo "AUTH for this project - ${AUTH}"
                 echo "DB ENGINE - ${DB_ENGINE}"

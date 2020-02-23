@@ -30,7 +30,7 @@ pipeline {
         }
         stage('Sanity - check') {
             steps {
-                echo 'sanity before production. okay ?'
+                input 'sanity before production. okay ?'
             }
         }
         

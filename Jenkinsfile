@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    enviornment {
+    environment {
         AUTH = 'oauth2'
         DB_ENGINE = 'Mysql'
     }

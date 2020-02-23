@@ -11,6 +11,7 @@ pipeline {
     stage ('test') {
       steps {
         sh ''' source jenkins_demo/bin/activate 
+        /usr/local/bin/pip install -r requirements.txt
           python tests.py
         '''
       }

@@ -11,6 +11,7 @@ pipeline {
                 echo 'In Build Stage'
                 }
                 timeout(time:3, unit:'SECONDS') {
+                    sleep(5)
                     echo 'Hey, In Timeout!!'
                 }
                 echo "AUTH for this project - ${AUTH}"
@@ -34,6 +35,9 @@ pipeline {
         }
         failure {
             echo 'In case of failure'
+            mail to: 'pankaj@screen-magic.com'
+                subject: "Failed Pipeline: ${currentBuild.fullDisplayName}"
+                body: "Something is wrong with ${env.BUILD_URL}"
         }
         unstable {
             echo 'if unstable'

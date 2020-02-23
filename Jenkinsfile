@@ -3,9 +3,9 @@ pipeline {
   stages {
     stage ('build') {
       steps {
-        sh '/usr/local/bin/virtualenv jenkins_demo'
-        sh 'source jenkins_demo/bin/activate'
-        sh '/usr/local/bin/pip install -r requirements.txt'
+        sh '''/usr/local/bin/virtualenv jenkins_demo
+        source jenkins_demo/bin/activate
+        /usr/local/bin/pip install -r requirements.txt'''
       }
     }
     stage ('test') {

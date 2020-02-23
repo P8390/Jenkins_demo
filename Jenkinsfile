@@ -11,7 +11,7 @@ pipeline {
                 echo 'In Build Stage'
                 }
                 timeout(time:3, unit:'SECONDS') {
-                    ech 'Hey, In Timeout!!'
+                    echo 'Hey, In Timeout!!'
                 }
                 echo "AUTH for this project - ${AUTH}"
                 echo "DB ENGINE - ${DB_ENGINE}"
@@ -21,6 +21,16 @@ pipeline {
             steps {
                 echo 'In Running Stage'
                 sh 'python hello_workd.py'
+            }
+        }
+        stage('deploy-staging') {
+            steps {
+                echo 'Deploying on staging'
+            }
+        }
+        stage('deploy-production') {
+            steps {
+                echo 'Deploying on production'
             }
         }
     }

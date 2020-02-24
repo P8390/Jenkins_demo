@@ -12,7 +12,7 @@ pipeline {
     stage ('test') {
       steps {
         sh ''' source jenkins_demo/bin/activate 
-          pyhton app.py
+          python app.py
           python tests.py
         '''
       }

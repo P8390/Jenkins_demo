@@ -1,10 +1,10 @@
 pipeline {
-  agent { label 'dockerserver' }
+  agent { label 'docker' }
   stages {
     stage ('build') {
       agent {
                 docker {
-                  label 'dockerserver'  // both label and image
+                  label 'docker'  // both label and image
                   image 'python:3.5.1' 
                 }
             }
@@ -16,6 +16,12 @@ pipeline {
       }
     }
     stage ('test') {
+      agent {
+                docker {
+                  label 'docker'  // both label and image
+                  image 'python:3.5.1' 
+                }
+            }
       steps {
         sh ''' source jenkins_demo/bin/activate 
           python app.py

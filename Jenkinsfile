@@ -1,7 +1,13 @@
 pipeline {
-  agent { docker { image 'python:3.5.1' } }
+  agent { label 'dockerserver' }
   stages {
     stage ('build') {
+      agent {
+                docker {
+                  label 'dockerserver'  // both label and image
+                  image 'python:3.5.1' 
+                }
+            }
       steps {
         sh '''/usr/local/bin/virtualenv jenkins_demo
         source jenkins_demo/bin/activate

@@ -11,5 +11,10 @@ pipeline {
         }
       }
     }
+    post {
+      always {
+        echo 'run successfully'
+      }
+    }
   }
 }

@@ -7,6 +7,7 @@ pipeline {
         withCredentials(bindings: [usernamePassword(credentialsId: '4dcba0e4-027c-4edb-b9f3-909bfe955215', usernameVariable: 'username', passwordVariable: 'password')]){
         sh 'echo $username'
         sh 'echo $password'
+          sh 'echo hello'
         }
       }
     }

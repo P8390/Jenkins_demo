@@ -6,10 +6,10 @@ pipeline {
         echo 'inside of build stage'
       }
     }
+  }
     post {
       always {
         echo 'run successfully'
       }
     }
-  }
 }

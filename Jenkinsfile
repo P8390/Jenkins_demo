@@ -3,6 +3,8 @@ pipeline {
   agent any
   environment {
     CREDENTIAL = credentials('0d7e3a4c-8fcf-4ff9-b72b-a3154118a288')
+    GIT_USERNAME = "${env.CREDENTIAL_USR}"
+    GIT_PASSWORD = "${env.CREDENTIAL_PSW}"
   }
   stages {
     stage('Build') {
@@ -11,8 +13,8 @@ pipeline {
         sh 'ls -lat'
         withCredentials([usernamePassword(credentialsId: '0d7e3a4c-8fcf-4ff9-b72b-a3154118a288', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]){
         echo 'inside the ..'
-          echo "${env.CREDENTIAL_USR}"
-          echo "${env.CREDENTIAL_PSW}"
+          echo $GIT_USERNAME
+          echo $GIT_PASSWORD
         }
       }
     }

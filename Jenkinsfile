@@ -11,8 +11,8 @@ pipeline {
         sh 'ls -lat'
         withCredentials([usernamePassword(credentialsId: '0d7e3a4c-8fcf-4ff9-b72b-a3154118a288', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]){
         echo 'inside the ..'
-          echo $GIT_USERNAME
-          echo $CREDENTIAL_PSW
+          echo "${env.CREDENTIAL_USR}"
+          echo "${env.CREDENTIAL_PSW}"
         }
       }
     }

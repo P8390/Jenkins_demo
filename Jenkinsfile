@@ -12,7 +12,7 @@ pipeline {
         git(branch: 'master', credentialsId: '0d7e3a4c-8fcf-4ff9-b72b-a3154118a288', url: 'https://github.com/P8390/Jenkins_demo.git')
         sh '''
           ls -lat
-          TARBALL=`tar -zcf demo_deploy.tgz`
+          TARBALL=`tar -zcf demo_deploy.tgz .`
           echo "tar errors = $TARBALL , blank if none"
         '''
     

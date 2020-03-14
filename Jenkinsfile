@@ -15,8 +15,15 @@ pipeline {
           TARBALL=`tar -zcf demo_deploy.tgz .`
           echo "tar errors = $TARBALL , blank if none"
         '''
-    
       }
+    }
+    post {
+      success {
+        archiveArtifacts(onlyIfSuccessful: true, artifacts: '*_deploy.tgz', fingerprint: true)
+      }
+      failure {
+                cleanWs()
+            }
     }
   }
 }

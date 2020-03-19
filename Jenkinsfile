@@ -64,7 +64,7 @@ pipeline {
       steps {
         withEnv(overrides:["project_key=${PROJECT}"]){
           withSonarQubeEnv('sonarqube'){
-            sh 'sonar-scanner -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectKey=$project_key -Dsonar.sources=. -DfailIfNoTests=true -Dsonar.scm.provider=git -Dsonar.exclusions=*_env/**/* -Dsonar.test.exclusions=*test*/*,./*.xml -Dsonar.python.xunit.reportPath=nosetests.xml  -Dsonar.core.codeCoveragePlugin=cobertura -Dsonar.python.coverage.reportPaths=coverage.xml'
+            sh 'sonar-scanner -Dsonar.token=bef0a6010c354aeb771b0b2a414391b102ed0ffb -Dsonar.projectKey=$project_key -Dsonar.sources=. -DfailIfNoTests=true -Dsonar.scm.provider=git  -Dsonar.exclusions=*.xml -Dsonar.exclusions=*_env/**/* -Dsonar.test.exclusions=*test*/*,./*.xml -Dsonar.python.xunit.reportPath=nosetests.xml  -Dsonar.core.codeCoveragePlugin=cobertura -Dsonar.python.coverage.reportPaths=coverage.xml'
           }
         }
       }

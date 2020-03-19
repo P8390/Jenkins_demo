@@ -5,16 +5,25 @@ pipeline {
     CREDENTIAL = credentials('0d7e3a4c-8fcf-4ff9-b72b-a3154118a288')
     GIT_USERNAME = "${env.CREDENTIAL_USR}"
     GIT_PASSWORD = "${env.CREDENTIAL_PSW}"
+    PROJECT = 'Jenkins_demo'
+    PYTHONPATH = "${WORKSPACE}"
   }
   stages {
-    stage('Build') {
+    stage('Build Env') {
       steps {
-        git(branch: 'master', credentialsId: '0d7e3a4c-8fcf-4ff9-b72b-a3154118a288', url: 'https://github.com/P8390/Jenkins_demo.git')
-        sh '''
-          ls -lat
-          TARBALL=`tar -zcf demo_deploy.tgz .`
-        '''
-    }
+        git(branch: "${BRANCH_NAME}", credentialsId: '0d7e3a4c-8fcf-4ff9-b72b-a3154118a288', url: 'https://github.com/P8390/Jenkins_demo.git')
+        sh 'ls -lat'
+          withEnv(overrides: ["project_key=${PROJECT}"]){
+            sh '''
+              pip3 install virtualenv
+              virtualenv -p python3 "$project_key"_env
+              source "$project_key"_env/bin/activate
+              pip install -r requirements.txt --no-cache-dir
+              sudo find ./ -name '*.pyc' -delete
+              TARBALL=`tar --warning=no-file-changed --exclude=\'"$project_key"_deploy.tgz\' --exclude=\'.git\' -zcf "$project_key"_deploy.tgz .
+            '''
+          }
+        }
     post{
       success {
         archiveArtifacts(onlyIfSuccessful: true, artifacts: '*_deploy.tgz', fingerprint: true)
@@ -23,6 +32,79 @@ pipeline {
          cleanWs()
       }
      }
+    }
+   stage('Run Tests') {
+      when {
+        anyof {
+          branch 'integration'
+          branch 'staging'
+          branch 'master'
+        }
+      }
+      steps {
+        withEnv(overrides:["project_key=${PROJECT}", "enviornment_key=${BRANCH_NAME}"]){
+          sh '''
+            source "$project_key"_env/bin/activate
+            python --version
+            pip freeze
+            nosetests tests.py --with-xunit --xunit-file=nosetests.xml --with-coverage --cover-xml --cover-xml-file=coverage.xml || echo export RESULT=failures
+          '''
+          junit 'nosetests.xml'          
+          cobertura coberturaReportFile: 'coverage.xml'          
+        }
+      }
+    }
+    stage('Quality Check') {
+      when {
+        anyof {
+          branch 'integration'
+          branch 'staging'
+          branch 'master'
+        }
+      }
+      steps {
+        withEnv(overrides:["project_key=${PROJECT}"]){
+          withSonarQubeEnv('sonarqube'){
+            sh `sonar-scanner -Dsonar.projectKey=$project_key -Dsonar.sources=. -Dsonar.python.xunit.reportPath=nosetests.xml  -Dsonar.core.codeCoveragePlugin=cobertura -Dsonar.python.coverage.reportPath=coverage.xml`
+          }
+        }
+      }
+     stage('Quality Gate') {
+        when {
+          anyof {
+            branch 'integration'
+            branch 'staging'
+            branch 'master'
+          }
+        }
+        steps {
+          timeout(time:15, unit: 'MINUTES'){
+            withSonarQubeEnv('sonarqube'){
+              waitForQualityGate true
+            }
+          }
+        }
+     }
+      stage('Test Result') {
+        when {
+          anyof {
+            branch 'integration'
+            branch 'staging'
+            branch 'master'
+          }
+        }
+        steps {
+          sh '''
+            source "$project_key"_env/bin/activate
+            echo "Test result - $RESULT"
+            if [ "$RESULT" = failures ]
+                then
+                   exit 1
+                  #exit 0                     #=======Dry run always success==========
+            fi
+          '''
+        }
+      }
+    }
   }
-}
 }

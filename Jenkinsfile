@@ -46,7 +46,7 @@ pipeline {
             source "$project_key"_env/bin/activate
             python --version
             pip freeze
-            nosetests tests.py --with-xunit --xunit-file=nosetests.xml --with-coverage --cover-xml --cover-xml-file=coverage.xml  --cover-package tests || echo export RESULT=failures
+            nosetests unittests --with-xunit --xunit-file=nosetests.xml --with-coverage --cover-xml --cover-xml-file=coverage.xml  --cover-package main_app || echo export RESULT=failures
           '''
           junit 'nosetests.xml'          
           cobertura coberturaReportFile: 'coverage.xml'          

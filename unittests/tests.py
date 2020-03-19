@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 import unittest
-import app
+import xmlrunner
+from main_app.app import app as f_app
 
 
 class TestHello(unittest.TestCase):
 
     def setUp(self):
-        app.app.testing = True
-        self.app = app.app.test_client()
+        f_app.testing = True
+        self.app = f_app.test_client()
 
     def test_hello(self):
         rv = self.app.get('/')
@@ -26,8 +27,6 @@ class TestHello(unittest.TestCase):
 
 
 if __name__ == '__main__':
-     ############# Add these lines #############
-    import xmlrunner
     runner = xmlrunner.XMLTestRunner(output='test-reports')
     unittest.main(testRunner=runner)
     ###########################################

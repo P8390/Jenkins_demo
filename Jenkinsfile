@@ -19,7 +19,7 @@ pipeline {
               virtualenv -p python3 "$project_key"_env
               source "$project_key"_env/bin/activate
               pip install -r requirements.txt --no-cache-dir
-              TARBALL=`tar --warning=no-file-changed --exclude=\'"$project_key"_deploy.tgz\' --exclude=\'.git\' -zcf "$project_key"_deploy.tgz .
+              TARBALL=`tar --warning=no-file-changed --exclude=\'"$project_key"_deploy.tgz\' --exclude=\'.git\' -zcf "$project_key"_deploy.tgz . `
             '''
           }
         }

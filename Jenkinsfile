@@ -56,7 +56,7 @@ pipeline {
     }
     stage('Quality Check') {
       when {
-        anyof {
+        anyOf {
           branch 'integration'
           branch 'staging'
           branch 'master'
@@ -72,7 +72,7 @@ pipeline {
     }
      stage('Quality Gate') {
         when {
-          anyof {
+          anyOf {
             branch 'integration'
             branch 'staging'
             branch 'master'
@@ -88,7 +88,7 @@ pipeline {
      }
       stage('Test Result') {
         when {
-          anyof {
+          anyOf {
             branch 'integration'
             branch 'staging'
             branch 'master'

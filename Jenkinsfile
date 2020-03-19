@@ -94,6 +94,7 @@ pipeline {
             branch 'master'
           }
         }
+        withEnv(overrides:["project_key=${PROJECT}"]){
         steps {
           sh '''
             source "$project_key"_env/bin/activate
@@ -104,6 +105,7 @@ pipeline {
                   #exit 0                     #=======Dry run always success==========
             fi
           '''
+        }
         }
       }
     }

@@ -80,10 +80,7 @@ pipeline {
         steps {
           timeout(time:1, unit: 'MINUTES'){
             withSonarQubeEnv('sonarqube'){
-              def qGate = waitForQualityGate()
-              if (qGate.status != 'OK') {
-                error "Pipeline aborted due to quality gate failure: ${qGate.status}"
-            }
+             waitForQualityGate abortPipeline: true
             }
           }
         }

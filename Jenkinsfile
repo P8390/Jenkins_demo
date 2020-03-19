@@ -64,7 +64,7 @@ pipeline {
       steps {
         withEnv(overrides:["project_key=${PROJECT}"]){
           withSonarQubeEnv('sonarqube'){
-            sh 'sonar-scanner -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectKey=$project_key -Dsonar.sources=. -Dsonar.python.xunit.reportPath=nosetests.xml  -Dsonar.core.codeCoveragePlugin=cobertura -Dsonar.python.coverage.reportPath=coverage.xml'
+            sh 'sonar-scanner -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectKey=$project_key -Dsonar.sources=. -Dsonar.python.xunit.reportPath=nosetests.xml  -Dsonar.core.codeCoveragePlugin=cobertura -Dsonar.python.coverage.reportPaths=coverage.xml'
           }
         }
       }

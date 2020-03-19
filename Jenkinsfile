@@ -94,8 +94,8 @@ pipeline {
             branch 'master'
           }
         }
-        withEnv(overrides:["project_key=${PROJECT}"]){
         steps {
+          withEnv(overrides:["project_key=${PROJECT}"]){
           sh '''
             source "$project_key"_env/bin/activate
             echo "Test result - $RESULT"

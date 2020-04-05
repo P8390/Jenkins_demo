@@ -85,7 +85,6 @@ pipeline {
             }
           }
         }
-     }
       stage('Test Result') {
         when {
           anyOf {

@@ -1,0 +1,6 @@
+[app1]
+localhost_1 ansible_connection=local
+localhost_2 ansible_connection=local
+
+[app2]
+localhost_3 ansible_connection=local

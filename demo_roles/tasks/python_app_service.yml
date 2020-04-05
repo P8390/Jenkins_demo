@@ -2,16 +2,21 @@
 
  - name: Create Service Directory
    file:
-      path: "{{ item }}"
-      owner: root
-      group: admin
-      recurse: yes
-      state: directory
-      mode: '0774'
+     become: yes
+     become_method: sudo
+     path: "{{ item }}"
+     owner: root
+     group: admin
+     recurse: yes
+     state: directory
+     mode: '0774'
    with_items:
      - "{{ home_dir }}/Setup"
+
  - name: Create Log Directories
    file:
+      become: yes
+      become_method: sudo
       path: "{{ home_dir }}/logs"
       state: directory
       mode: '0777'

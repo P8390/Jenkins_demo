@@ -139,7 +139,7 @@ pipeline {
                 }
             }
           steps {
-            unarchive(mapping: ['*_deploy': '.'])
+            unarchive(mapping: ['*_deploy*': '.'])
             withEnv(overrides: ["project_key=${PROJECT}", "enviornment_key=${BRANCH_NAME}"]){
               ansiblePlaybook(
                               inventory: 'ansible_hosts',

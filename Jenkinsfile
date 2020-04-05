@@ -107,6 +107,55 @@ pipeline {
           '''
         }
         }
+        stage('Promotion') {
+          when {
+          anyOf {
+            branch 'integration'
+            branch 'staging'
+            branch 'master'
+          }
+        }
+          post {
+            always {
+              cleanWs()
+              mail to: 'pankaj@screen-magic.com',
+                subject: "Jenkins Build ${env.JOB_NAME} #${env.BUILD_NUMBER} Awaits Approval",
+                body: "The ${BRANCH_NAME} build is ready to be promoted.\n\nConsole: ${env.BUILD_URL}.\n\n"
+            }
+          }
+          steps {
+            timeout(time: 60, unit: 'SECONDS'){
+              input 'sanity before production. okay ?'
+            }
+          }
+        }
+        stage('Deploy') {
+          agent {
+            label: '${BRANCH_NAME}'
+          }
+          when {
+            anyOf {
+                branch 'integration'
+                branch 'staging'
+                branch 'master'
+                }
+            }
+          steps {
+            unarchive(mapping: ['*_deploy': '.'])
+            withEnv(overrides: ["project_key=${PROJECT}", "enviornment_key=${BRANCH_NAME}"]){
+              ansiblePlaybook(
+                              inventory: 'ansible_hosts',
+                              playbook: 'ansible_playbook.yml',
+                              colorized: true
+                            )
+            }
+          }
+          post {
+            always {
+                cleanWs()
+            }
+        }
+        }
       }
     }
   }

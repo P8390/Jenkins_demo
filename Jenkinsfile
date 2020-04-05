@@ -131,9 +131,6 @@ pipeline {
           }
         }
         stage('Deploy') {
-          agent {
-            label: '${BRANCH_NAME}'
-          }
           when {
             anyOf {
                 branch 'integration'

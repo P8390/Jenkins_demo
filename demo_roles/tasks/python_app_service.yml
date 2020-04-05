@@ -28,7 +28,7 @@
  - name: Create Supervisor Config
    template:
      src: app_template.j2
-     dest: "{{ home_dir }}/supervisor.conf"
+     dest: "{{ home_dir }}/etc/supervisor/conf.d/demo_app.conf"
      mode: '0774'
      owner: root
    notify:

@@ -3,8 +3,8 @@
  - name: Create Service Directory
    file:
      path: "{{ item }}"
-     owner: root
-     group: root
+     owner: pankaj
+     group: pankaj
      recurse: yes
      state: directory
      mode: '0774'
@@ -16,15 +16,15 @@
       path: "{{ home_dir }}/logs"
       state: directory
       mode: '0777'
-      owner: root
-      group: root
+      owner: pankaj
+      group: pankaj
 
  - name: Download and Unrachive Artifcats
    unarchive:
      src: "{{ python_app_package }}"
      dest: "{{ home_dir }}/Setup"
-     owner: root
-     group: root
+     owner: pankaj
+     group: pankaj
      mode: '774'
    notify:
     - Update Supervisor
@@ -33,7 +33,7 @@
      src: app_template.j2
      dest: "{{ home_dir }}/supervisor.conf"
      mode: '0774'
-     owner: root
-     group: root
+     owner: pankaj
+     group: pankaj
    notify:
      - Update Supervisor

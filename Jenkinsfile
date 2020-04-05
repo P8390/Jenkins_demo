@@ -139,6 +139,7 @@ pipeline {
                 }
             }
           steps {
+            git(branch: "${BRANCH_NAME}", credentialsId: '0d7e3a4c-8fcf-4ff9-b72b-a3154118a288', url: 'https://github.com/P8390/Jenkins_demo.git')
             unarchive(mapping: ['*_deploy*': '.'])
             withEnv(overrides: ["project_key=${PROJECT}", "enviornment_key=${BRANCH_NAME}"]){
               ansiblePlaybook(
@@ -154,5 +155,12 @@ pipeline {
             }
         }
         }
+    post {
+      always {
+        mail to: 'pankaj@screen-magic.com',
+             subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}",
+             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
+      }
+    }
       }
     }

@@ -30,6 +30,6 @@
      src: app_template.j2
      dest: "{{ home_dir }}/supervisor.conf"
      mode: '0774'
-     owner: pankaj
+     owner: root
    notify:
      - Update Supervisor

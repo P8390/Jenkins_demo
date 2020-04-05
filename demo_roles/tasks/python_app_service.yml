@@ -1,17 +1,17 @@
 ---
 
  - name: Create Service Directory
-    file:
+   file:
       path: "{{ item }}"
       owner: root
       group: admin
       recurse: yes
       state: directory
       mode: '0774'
-    with_items:
-        - "{{ home_dir }}/Setup"
+   with_items:
+     - "{{ home_dir }}/Setup"
  - name: Create Log Directories
-    file:
+   file:
       path: "{{ home_dir }}/logs"
       state: directory
       mode: '0777'
@@ -25,14 +25,14 @@
      owner: root
      group: admin
      mode: '774'
-    notify:
-      - Update Supervisor
+   notify:
+    - Update Supervisor
  - name: Create Supervisor Config
-     template:
-       src: app_template.j2
-       dest: "{{ home_dir }}/supervisor.conf"
-       mode: '0774'
-       owner: root
-       group: admin
-     notify:
-       - Update Supervisor
+   template:
+     src: app_template.j2
+     dest: "{{ home_dir }}/supervisor.conf"
+     mode: '0774'
+     owner: root
+     group: admin
+   notify:
+     - Update Supervisor

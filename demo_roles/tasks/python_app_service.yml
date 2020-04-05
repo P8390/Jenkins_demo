@@ -25,10 +25,11 @@
      mode: '774'
    notify:
     - Update Supervisor
+
  - name: Create Supervisor Config
    template:
      src: app_template.j2
-     dest: "{{ home_dir }}/etc/supervisor/conf.d/demo_app.conf"
+     dest: "/etc/supervisor/conf.d/demo_app.conf"
      mode: '0774'
      owner: root
    notify:

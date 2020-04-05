@@ -85,6 +85,7 @@ pipeline {
             }
           }
         }
+     }
       stage('Test Result') {
         when {
           anyOf {
@@ -106,6 +107,7 @@ pipeline {
           '''
         }
         }
+      }
         stage('Promotion') {
           when {
           anyOf {
@@ -157,5 +159,3 @@ pipeline {
         }
       }
     }
-  }
-}

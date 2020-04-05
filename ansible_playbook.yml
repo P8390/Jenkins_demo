@@ -1,0 +1,8 @@
+---
+  - name: "Playing with Ansible and Git"
+    hosts: all
+    tasks:
+    - name: "just execute a ls -ltr command"
+      shell: "ls -ltr"
+      register: "output"
+    - debug: var=output.stdout_lines

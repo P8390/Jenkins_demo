@@ -1,0 +1,7 @@
+---
+ - name: Update Supervisor
+   shell: "{{ item }}"
+   loop:
+     - supervisorctl reread
+     - supervisorctl update
+     - supervisorctl restart {{ app_service }}

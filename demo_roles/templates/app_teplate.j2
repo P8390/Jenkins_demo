@@ -1,0 +1,8 @@
+[program:{{ app_service }}]
+command={{ app_service }}_env/bin/gunicorn --log-level debug app:main_app --bind 0.0.0.0:5000 -w 2
+directory={{ home_dir }}/Setup/
+stdout_logfile={{ home_dir }}/logs/{{ app_service }}_supervisor_stdout.log
+stderr_logfile={{ home_dir }}/logs/{{ app_service }}_supervisor_stderr.log
+user=pankaj
+autostart=true
+autorestart=true

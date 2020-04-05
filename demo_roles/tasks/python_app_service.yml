@@ -1,0 +1,38 @@
+---
+
+ - name: Create Service Directory
+    file:
+      path: "{{ item }}"
+      owner: root
+      group: admin
+      recurse: yes
+      state: directory
+      mode: '0774'
+    with_items:
+        - "{{ home_dir }}/Setup"
+ - name: Create Log Directories
+    file:
+      path: "{{ home_dir }}/logs"
+      state: directory
+      mode: '0777'
+      owner: root
+      group: admin
+
+ - name: Download and Unrachive Artifcats
+   unarchive:
+     src: "{{ python_app_package }}"
+     dest: "{{ home_dir }}/Setup"
+     owner: root
+     group: admin
+     mode: '774'
+    notify:
+      - Update Supervisor
+ - name: Create Supervisor Config
+     template:
+       src: app_template.j2
+       dest: "{{ home_dir }}/supervisor.conf"
+       mode: '0774'
+       owner: root
+       group: admin
+     notify:
+       - Update Supervisor

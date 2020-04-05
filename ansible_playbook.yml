@@ -1,8 +1,14 @@
----
-  - name: "Playing with Ansible and Git"
+  - name: "Playing with Ansible"
     hosts: all
-    tasks:
-    - name: "just execute a ls -ltr command"
-      shell: "ls -ltr"
-      register: "output"
-    - debug: var=output.stdout_lines
+
+    pre_tasks:
+     - name: Set Variables
+       set_fact:
+         python_app_package: "{{ playbook_dir }}/{{ lookup('env', 'project_key') }}_deploy.tgz"
+         ansible_python_interpreter: "{{ lookup('env', 'project_key') }}_env/bin/python"
+         app_service: "{{ lookup('env','project_key') }}"
+         service_env: "{{ lookup('env','environment_key') }}"
+         workspace_dir: "{{ playbook_dir }}"
+         home_dir: "{{ lookup('env', 'HOME') }}"
+    roles:
+      - role: demo_roles

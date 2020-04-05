@@ -1,0 +1,3 @@
+---
+# tasks file for demo_roles
+ - include_tasks: python_app_service.yml

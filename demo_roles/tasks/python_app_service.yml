@@ -4,7 +4,6 @@
    file:
      path: "{{ item }}"
      owner: pankaj
-     group: pankaj
      recurse: yes
      state: directory
      mode: '0774'
@@ -17,14 +16,12 @@
       state: directory
       mode: '0777'
       owner: pankaj
-      group: pankaj
 
  - name: Download and Unrachive Artifcats
    unarchive:
      src: "{{ python_app_package }}"
      dest: "{{ home_dir }}/Setup"
      owner: pankaj
-     group: pankaj
      mode: '774'
    notify:
     - Update Supervisor
@@ -34,6 +31,5 @@
      dest: "{{ home_dir }}/supervisor.conf"
      mode: '0774'
      owner: pankaj
-     group: pankaj
    notify:
      - Update Supervisor

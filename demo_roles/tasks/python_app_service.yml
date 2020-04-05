@@ -4,11 +4,10 @@
    file:
      path: "{{ item }}"
      owner: root
-     group: admin
+     group: root
      recurse: yes
      state: directory
      mode: '0774'
-     become: yes
    with_items:
      - "{{ home_dir }}/Setup"
 
@@ -18,15 +17,14 @@
       state: directory
       mode: '0777'
       owner: root
-      group: admin
-      become: yes
+      group: root
 
  - name: Download and Unrachive Artifcats
    unarchive:
      src: "{{ python_app_package }}"
      dest: "{{ home_dir }}/Setup"
      owner: root
-     group: admin
+     group: root
      mode: '774'
    notify:
     - Update Supervisor
@@ -36,6 +34,6 @@
      dest: "{{ home_dir }}/supervisor.conf"
      mode: '0774'
      owner: root
-     group: admin
+     group: root
    notify:
      - Update Supervisor

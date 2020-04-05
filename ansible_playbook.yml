@@ -5,7 +5,7 @@
      - name: Set Variables
        set_fact:
          python_app_package: "{{ playbook_dir }}/{{ lookup('env', 'project_key') }}_deploy.tgz"
-         ansible_python_interpreter: "{{ lookup('env', 'project_key') }}_env/bin/python"
+         ansible_python_interpreter: "/usr/local/bin/python"
          app_service: "{{ lookup('env','project_key') }}"
          service_env: "{{ lookup('env','environment_key') }}"
          workspace_dir: "{{ playbook_dir }}"

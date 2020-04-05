@@ -152,15 +152,11 @@ pipeline {
           post {
             always {
                 cleanWs()
+              mail to: 'pankaj@screen-magic.com',
+             subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}",
+             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
             }
         }
         }
-    post {
-      always {
-        mail to: 'pankaj@screen-magic.com',
-             subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}",
-             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
-      }
-    }
       }
     }
